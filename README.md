@@ -1,16 +1,10 @@
 # ecommerce_app_en
 
-A new Flutter project.
+Flutter E-commerce app based on 
+"Hadi Kachmar's Flutter & Firebase: build an E-commerce and Admin App [2024]" udemy course.
+ 
 
-## Getting Started
+## Details
 
-This project is a starting point for a Flutter application.
+I am rewriting the program in the course, because I want to practice and develope my flutter skills
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
