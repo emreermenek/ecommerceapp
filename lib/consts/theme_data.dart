@@ -5,12 +5,20 @@ class Themes {
   static ThemeData themeData(
       {required bool isDarkTheme, required BuildContext context}) {
     return ThemeData(
-        scaffoldBackgroundColor: isDarkTheme
-            ? ColorData.darkScaffoldColor
-            : ColorData.lightScaffoldColor,
-        primaryColor: isDarkTheme
-            ? ColorData.darkPrimaryColor
-            : ColorData.lightPrimaryColor,
-        brightness: isDarkTheme ? Brightness.dark : Brightness.light);
+      useMaterial3: true,
+      scaffoldBackgroundColor: isDarkTheme
+          ? ColorData.darkScaffoldColor
+          : ColorData.lightScaffoldColor,
+      primaryColor: isDarkTheme
+          ? ColorData.darkPrimaryColor
+          : ColorData.lightPrimaryColor,
+      cardColor:
+          isDarkTheme ? ColorData.darkCardColor : ColorData.lightCardColor,
+      colorScheme: ColorScheme.fromSeed(
+          brightness: isDarkTheme ? Brightness.dark : Brightness.light,
+          seedColor: isDarkTheme
+              ? ColorData.darkPrimaryColor
+              : ColorData.lightPrimaryColor),
+    );
   }
 }
