@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset(ImagesManager.shoppingBasket),
-        title: SubtitleTextWidget(lable: "Profile Page"),
+        title: const AppNameTextWidget(title: "Profile"),
       ),
       body: Column(
         children: [
@@ -25,7 +26,7 @@ class ProfilePage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(18.0),
               child: SubtitleTextWidget(
-                  lable: "Please login to have unlimited access!"),
+                  label: "Please login to have unlimited access!"),
             ),
           ),
           Visibility(
@@ -56,7 +57,7 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       TitleTextWidget(label: "Emre Ermenek"),
                       SubtitleTextWidget(
-                        lable: "emreermenek1234@gmail.com",
+                        label: "emreermenek1234@gmail.com",
                         fontSize: 16,
                       )
                     ],
@@ -112,11 +113,11 @@ class ProfilePage extends StatelessWidget {
                     ),
                     title: themeProvider.getIsDarkTheme
                         ? const SubtitleTextWidget(
-                            lable: "Dark Theme",
+                            label: "Dark Theme",
                             fontSize: 14,
                           )
                         : const SubtitleTextWidget(
-                            lable: "Dark Theme",
+                            label: "Dark Theme",
                             fontSize: 14,
                           ),
                     value: themeProvider.getIsDarkTheme,
@@ -130,7 +131,7 @@ class ProfilePage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     child: const SubtitleTextWidget(
-                      lable: "Logout",
+                      label: "Logout",
                       fontSize: 14,
                     ),
                   ),

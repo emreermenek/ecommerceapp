@@ -1,0 +1,25 @@
+import 'package:ecommerce_app_en/consts/color_data.dart';
+import 'package:ecommerce_app_en/providers/theme_provider.dart';
+import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
+
+class AppNameTextWidget extends StatelessWidget {
+  const AppNameTextWidget({super.key, required this.title});
+
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return Shimmer.fromColors(
+        period: const Duration(milliseconds: 3000),
+        baseColor: themeProvider.getIsDarkTheme
+            ? ColorData.darkPrimaryColor
+            : ColorData.lightPrimaryColor,
+        highlightColor: themeProvider.getIsDarkTheme
+            ? ColorData.lightPrimaryColor
+            : ColorData.darkPrimaryColor,
+        child: SubtitleTextWidget(label: title));
+  }
+}

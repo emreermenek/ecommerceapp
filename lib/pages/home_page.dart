@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const TitleTextWidget(label: "Title"),
-          const SubtitleTextWidget(lable: "Subtitle Text"),
+          const SubtitleTextWidget(label: "Subtitle Text"),
           ElevatedButton(onPressed: () {}, child: const Text("ss")),
           SwitchListTile(
               title: themeProvider.getIsDarkTheme

@@ -21,7 +21,7 @@ class CustomListTileWidget extends StatelessWidget {
       ),
       titleAlignment: ListTileTitleAlignment.titleHeight,
       title: SubtitleTextWidget(
-        lable: title,
+        label: title,
         fontSize: 14,
       ),
       trailing: const Icon(Icons.arrow_right),
