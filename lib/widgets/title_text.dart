@@ -20,7 +20,7 @@ class TitleTextWidget extends StatelessWidget {
       style: TextStyle(
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
-          color: null,
+          color: color,
           overflow: TextOverflow.ellipsis),
     );
   }
