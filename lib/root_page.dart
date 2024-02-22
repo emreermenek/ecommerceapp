@@ -12,7 +12,7 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  int currentPage = 2;
+  int currentPage = 1;
   late List<Widget> pages;
   late PageController controller;
   @override
