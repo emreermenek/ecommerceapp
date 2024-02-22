@@ -1,33 +1,51 @@
+import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/providers/theme_provider.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:card_swiper/card_swiper.dart';
+
+import '../services/images_manager.dart';
+import '../widgets/app_name_text_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const TitleTextWidget(label: "Title"),
-          const SubtitleTextWidget(label: "Subtitle Text"),
-          ElevatedButton(onPressed: () {}, child: const Text("ss")),
-          SwitchListTile(
-              title: themeProvider.getIsDarkTheme
-                  ? const Text("Dark Theme")
-                  : const Text("Light Theme"),
-              value: themeProvider.getIsDarkTheme,
-              onChanged: (value) {
-                themeProvider.setDarkTheme(value);
-              }),
-        ],
+      appBar: AppBar(
+        toolbarHeight: 40,
+        leading: Image.asset(ImagesManager.shoppingCart),
+        title: const AppNameTextWidget(title: "Best Shop"),
       ),
-    ));
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 12,
+            ),
+            SizedBox(
+              height: size.height * 0.25,
+              child: Swiper(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Image.asset(
+                      AppConstants.bannerImages[index],
+                      fit: BoxFit.fill,
+                    );
+                  },
+                  autoplay: true,
+                  itemCount: AppConstants.bannerImages.length,
+                  pagination: const SwiperPagination(
+                      builder:
+                          DotSwiperPaginationBuilder(activeColor: Colors.red))),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
