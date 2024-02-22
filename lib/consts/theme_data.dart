@@ -12,6 +12,12 @@ class Themes {
       primaryColor: isDarkTheme
           ? ColorData.darkPrimaryColor
           : ColorData.lightPrimaryColor,
+      appBarTheme: AppBarTheme(
+          iconTheme:
+              IconThemeData(color: isDarkTheme ? Colors.white : Colors.black),
+          backgroundColor: isDarkTheme
+              ? ColorData.darkScaffoldColor
+              : ColorData.lightScaffoldColor),
       cardColor:
           isDarkTheme ? ColorData.darkCardColor : ColorData.lightCardColor,
       colorScheme: ColorScheme.fromSeed(
