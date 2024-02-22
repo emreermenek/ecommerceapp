@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_en/pages/card_page/qty_bottom_sheet_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,15 @@ class CardWidget extends StatelessWidget {
                         ),
                         const Spacer(),
                         OutlinedButton.icon(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await showModalBottomSheet(
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  context: context,
+                                  builder: (context) {
+                                    return QuantityBottomSheetWidget();
+                                  });
+                            },
                             icon: const Icon(Icons.arrow_drop_down),
                             label: const SubtitleTextWidget(
                               label: "Qty: 6",

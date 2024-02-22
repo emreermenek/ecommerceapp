@@ -16,7 +16,8 @@ class ProfilePage extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: Image.asset(ImagesManager.shoppingBasket),
+        toolbarHeight: 40,
+        leading: Image.asset(ImagesManager.shoppingCart),
         title: const AppNameTextWidget(title: "Best Shop"),
       ),
       body: SingleChildScrollView(

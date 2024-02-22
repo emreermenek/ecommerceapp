@@ -24,7 +24,8 @@ class CardPage extends StatelessWidget {
         : Scaffold(
             bottomNavigationBar: const BottomCheckoutWidget(),
             appBar: AppBar(
-              leading: Image.asset(ImagesManager.shoppingCart),
+              toolbarHeight: 40,
+              leading: Image.asset(ImagesManager.shoppingBasket),
               title: const SubtitleTextWidget(label: "Card(7)"),
               actions: [
                 IconButton(
@@ -35,7 +36,7 @@ class CardPage extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return CardWidget();
+                  return const CardWidget();
                 }));
   }
 }
