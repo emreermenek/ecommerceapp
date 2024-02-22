@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/pages/card_page/qty_bottom_sheet_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
@@ -19,8 +20,7 @@ class CardWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: FancyShimmerImage(
-                  imageUrl:
-                      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e93db408-ecf6-4982-b0d0-13a756c9b8c2/pegasus-40-mens-road-running-shoes-zD8H1c.png',
+                  imageUrl: AppConstants.nikeShoe,
                   height: size.height * 0.2,
                   width: size.height * 0.2,
                 ),

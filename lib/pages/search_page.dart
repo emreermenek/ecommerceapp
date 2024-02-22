@@ -1,7 +1,9 @@
 import 'package:ecommerce_app_en/services/images_manager.dart';
+import 'package:ecommerce_app_en/widgets/products/product_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -55,7 +57,17 @@ class _SearchPageState extends State<SearchPage> {
                             Icons.clear,
                             color: Colors.red,
                           ))),
-                )
+                ),
+                Expanded(
+                  child: DynamicHeightGridView(
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 12,
+                      builder: (context, index) {
+                        return ProductsWidget();
+                      },
+                      itemCount: 16,
+                      crossAxisCount: 2),
+                ),
               ],
             ),
           )),
