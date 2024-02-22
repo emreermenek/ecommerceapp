@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_en/pages/card_page/bottom_checkout_widget.dart';
 import 'package:ecommerce_app_en/pages/card_page/card_widget.dart';
 import 'package:ecommerce_app_en/services/images_manager.dart';
 import 'package:ecommerce_app_en/widgets/empty_card_widget.dart';
@@ -21,6 +22,7 @@ class CardPage extends StatelessWidget {
                 buttonText: "Search Products",
                 func: () {}))
         : Scaffold(
+            bottomNavigationBar: const BottomCheckoutWidget(),
             appBar: AppBar(
               leading: Image.asset(ImagesManager.shoppingCart),
               title: const SubtitleTextWidget(label: "Card(7)"),
