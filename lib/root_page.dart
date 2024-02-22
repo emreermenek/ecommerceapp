@@ -51,7 +51,8 @@ class _RootPageState extends State<RootPage> {
                 label: 'Search'),
             NavigationDestination(
                 selectedIcon: Icon(Icons.credit_card),
-                icon: Icon(Icons.credit_card_outlined),
+                icon: Badge(
+                    label: Text("6"), child: Icon(Icons.credit_card_outlined)),
                 label: 'Card'),
             NavigationDestination(
                 selectedIcon: Icon(Icons.person),
