@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_en/models/categories_model.dart';
+
 import '../services/images_manager.dart';
 
 class AppConstants {
@@ -6,5 +8,34 @@ class AppConstants {
   static const List<String> bannerImages = [
     ImagesManager.banner1,
     ImagesManager.banner2
+  ];
+
+  static List<CategoriesModel> categoriesList = [
+    CategoriesModel(
+        id: ImagesManager.bookImage,
+        name: "Books",
+        image: ImagesManager.bookImage),
+    CategoriesModel(
+        id: ImagesManager.cosmetics,
+        name: "Cosmetics",
+        image: ImagesManager.cosmetics),
+    CategoriesModel(
+        id: ImagesManager.electronics,
+        name: "Electronics",
+        image: ImagesManager.electronics),
+    CategoriesModel(
+        id: ImagesManager.fashion,
+        name: "Fashion",
+        image: ImagesManager.fashion),
+    CategoriesModel(
+        id: ImagesManager.mobiles,
+        name: "Mobile Phones",
+        image: ImagesManager.mobiles),
+    CategoriesModel(
+        id: ImagesManager.pc, name: "Desktops", image: ImagesManager.pc),
+    CategoriesModel(
+        id: ImagesManager.shoes, name: "Shoes", image: ImagesManager.shoes),
+    CategoriesModel(
+        id: ImagesManager.watch, name: "Watches", image: ImagesManager.watch),
   ];
 }
