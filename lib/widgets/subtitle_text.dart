@@ -24,12 +24,12 @@ class SubtitleTextWidget extends StatelessWidget {
       label,
       maxLines: maxLines,
       style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          fontStyle: fontStyle,
-          color: color,
-          decoration: textDecoration,
-          overflow: TextOverflow.ellipsis),
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        fontStyle: fontStyle,
+        color: color,
+        decoration: textDecoration,
+      ),
     );
   }
 }

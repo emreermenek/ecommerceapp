@@ -63,7 +63,7 @@ class _SearchPageState extends State<SearchPage> {
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 12,
                       builder: (context, index) {
-                        return ProductsWidget();
+                        return const ProductsWidget();
                       },
                       itemCount: 16,
                       crossAxisCount: 2),
