@@ -77,6 +77,7 @@ class ProductDetails extends StatelessWidget {
                     color: Colors.lightBlue.shade300,
                     borderRadius: 25,
                     icon: Icons.favorite_border_outlined,
+                    func: () {},
                   ),
                   SizedBox(
                     width: size.width * 0.2,

@@ -7,13 +7,15 @@ class MaterialButtonWidget extends StatelessWidget {
       required this.padding,
       required this.color,
       required this.borderRadius,
-      required this.icon});
+      required this.icon,
+      required this.func});
 
   final double size;
   final double padding;
   final Color color;
   final double borderRadius;
   final IconData icon;
+  final Function func;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -22,7 +24,9 @@ class MaterialButtonWidget extends StatelessWidget {
         child: InkWell(
             splashColor: Colors.red,
             borderRadius: BorderRadius.circular(borderRadius),
-            onTap: () {},
+            onTap: () {
+              func();
+            },
             child: Padding(
               padding: EdgeInsets.all(padding),
               child: Icon(

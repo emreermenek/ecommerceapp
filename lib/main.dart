@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_en/consts/theme_data.dart';
+import 'package:ecommerce_app_en/pages/auth/register_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
               ViewedRecentlyScreen.rootName: (context) =>
                   const ViewedRecentlyScreen(),
               WishlistPage.rootName: (context) => const WishlistPage(),
+              RegisterPage.rootName: (context) => const RegisterPage()
             },
           );
         }));

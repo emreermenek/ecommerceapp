@@ -14,9 +14,9 @@ class GoogleButton extends StatelessWidget {
           width: 30,
           height: 30,
         ),
-        label: FittedBox(
-          child: const SubtitleTextWidget(
-            label: "Connect using Google",
+        label: const FittedBox(
+          child: SubtitleTextWidget(
+            label: "Sign in with Google",
             maxLines: 1,
           ),
         ));

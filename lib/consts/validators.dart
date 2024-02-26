@@ -29,4 +29,11 @@ class Validators {
       return "Password must be longer than 6 character";
     }
   }
+
+  static String? repeatPasswordValidator(String? value, String? password) {
+    if (value != password) {
+      return "Passwords do not match";
+    }
+    return null;
+  }
 }

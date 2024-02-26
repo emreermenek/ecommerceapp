@@ -61,11 +61,13 @@ class ProductsWidget extends StatelessWidget {
                   ),
                 ),
                 MaterialButtonWidget(
-                    size: 20,
-                    padding: 5.5,
-                    color: Colors.lightBlue.shade300,
-                    borderRadius: 25,
-                    icon: Icons.shopping_cart_outlined)
+                  size: 20,
+                  padding: 5.5,
+                  color: Colors.lightBlue.shade300,
+                  borderRadius: 25,
+                  icon: Icons.shopping_cart_outlined,
+                  func: () {},
+                )
               ],
             )
           ],
