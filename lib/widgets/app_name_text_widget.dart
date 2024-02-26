@@ -6,9 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AppNameTextWidget extends StatelessWidget {
-  const AppNameTextWidget({super.key, required this.title});
+  const AppNameTextWidget({super.key, required this.title, this.fontSize = 18});
 
   final String title;
+  final double fontSize;
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -20,6 +21,9 @@ class AppNameTextWidget extends StatelessWidget {
         highlightColor: themeProvider.getIsDarkTheme
             ? ColorData.lightPrimaryColor
             : ColorData.darkPrimaryColor,
-        child: SubtitleTextWidget(label: title));
+        child: SubtitleTextWidget(
+          label: title,
+          fontSize: fontSize,
+        ));
   }
 }

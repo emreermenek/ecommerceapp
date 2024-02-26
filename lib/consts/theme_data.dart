@@ -29,7 +29,7 @@ class Themes {
             contentPadding: const EdgeInsets.all(10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 0, color: isDarkTheme ? Colors.white : Colors.black),
+                  width: 1, color: isDarkTheme ? Colors.white : Colors.black),
               borderRadius: BorderRadius.circular(18),
             ),
             focusedBorder: OutlineInputBorder(

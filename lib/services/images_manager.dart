@@ -43,4 +43,5 @@ class ImagesManager {
   static const String roundedMap = "$images/rounded_map.png";
   static const String successful = "$images/successful.png";
   static const String warning = "$images/warning.png";
+  static const String googleLogo = "$images/google_logo.png";
 }
