@@ -24,9 +24,20 @@ class ImagePickerWidget extends StatelessWidget {
                             color: Theme.of(context).colorScheme.onBackground),
                         borderRadius: BorderRadius.circular(25)),
                   )
-                : Image.file(
-                    File(pickedImage!.path),
-                    fit: BoxFit.fill,
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: FileImage(
+                                File(pickedImage!.path),
+                              )),
+                          border: Border.all(
+                              color:
+                                  Theme.of(context).colorScheme.onBackground),
+                          borderRadius: BorderRadius.circular(25)),
+                    ),
                   ),
           ),
         ),
@@ -38,7 +49,7 @@ class ImagePickerWidget extends StatelessWidget {
             padding: 5.5,
             color: Colors.lightBlue.shade300,
             borderRadius: 25,
-            icon: Icons.shopping_cart_outlined,
+            icon: Icons.edit,
             func: () {
               func();
             },

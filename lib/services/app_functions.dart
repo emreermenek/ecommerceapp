@@ -104,7 +104,7 @@ class AppFunctions {
                       }
                     },
                     icon: const Icon(Icons.remove_circle),
-                    label: const SubtitleTextWidget(label: "Camera")),
+                    label: const SubtitleTextWidget(label: "Remove")),
               ]),
             ),
           );

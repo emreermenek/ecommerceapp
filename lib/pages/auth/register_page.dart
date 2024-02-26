@@ -64,6 +64,26 @@ class _LoginPageState extends State<RegisterPage> {
     FocusScope.of(context).unfocus();
   }
 
+  Future<void> localImagePicker() async {
+    final ImagePicker imagePicker = ImagePicker();
+    await AppFunctions.imagePickerDialog(
+        context: context,
+        cameraFunc: () async {
+          _pickedImage =
+              await imagePicker.pickImage(source: ImageSource.camera);
+          setState(() {});
+        },
+        galleryFunc: () async {
+          _pickedImage =
+              await imagePicker.pickImage(source: ImageSource.gallery);
+          setState(() {});
+        },
+        removeFunc: () {
+          _pickedImage = null;
+          setState(() {});
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -118,11 +138,7 @@ class _LoginPageState extends State<RegisterPage> {
                         child: ImagePickerWidget(
                           pickedImage: _pickedImage,
                           func: () async {
-                            AppFunctions.imagePickerDialog(
-                                context: context,
-                                cameraFunc: () {},
-                                galleryFunc: () {},
-                                removeFunc: () {});
+                            await localImagePicker();
                           },
                         )),
                     const SizedBox(
