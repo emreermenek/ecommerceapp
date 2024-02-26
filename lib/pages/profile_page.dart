@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
+import 'package:ecommerce_app_en/services/app_functions.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
@@ -142,7 +143,13 @@ class ProfilePage extends StatelessWidget {
                   ),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        AppFunctions.showErrorOrWarningDialog(
+                            context: context,
+                            func: () {},
+                            title: "Are you sure?",
+                            isError: false);
+                      },
                       child: const SubtitleTextWidget(
                         label: "Logout",
                         fontSize: 14,
