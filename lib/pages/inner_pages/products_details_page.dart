@@ -1,5 +1,4 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
-import 'package:ecommerce_app_en/services/images_manager.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
 import 'package:ecommerce_app_en/widgets/products/material_button_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
@@ -93,7 +92,7 @@ class ProductDetails extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              Align(
+              const Align(
                   alignment: Alignment.topLeft,
                   child:
                       FittedBox(child: TitleTextWidget(label: "Description"))),

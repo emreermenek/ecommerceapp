@@ -1,7 +1,8 @@
 import 'package:ecommerce_app_en/consts/theme_data.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
+import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
+import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
 import 'package:ecommerce_app_en/providers/theme_provider.dart';
-import 'package:ecommerce_app_en/pages/home_page.dart';
 import 'package:ecommerce_app_en/root_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,10 @@ class MyApp extends StatelessWidget {
                 isDarkTheme: themeProvider.getIsDarkTheme, context: context),
             home: const RootPage(),
             routes: {
-              ProductDetails.rootName: (context) => const ProductDetails()
+              ProductDetails.rootName: (context) => const ProductDetails(),
+              ViewedRecentlyScreen.rootName: (context) =>
+                  const ViewedRecentlyScreen(),
+              WishlistPage.rootName: (context) => const WishlistPage(),
             },
           );
         }));

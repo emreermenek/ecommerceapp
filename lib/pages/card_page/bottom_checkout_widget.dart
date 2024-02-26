@@ -11,7 +11,7 @@ class BottomCheckoutWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         border: const Border(
-          top: const BorderSide(width: 1, color: Colors.grey),
+          top: BorderSide(width: 1, color: Colors.grey),
         ),
       ),
       child: Padding(

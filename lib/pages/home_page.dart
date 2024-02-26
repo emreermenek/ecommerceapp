@@ -1,13 +1,8 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
-import 'package:ecommerce_app_en/providers/theme_provider.dart';
 import 'package:ecommerce_app_en/widgets/products/ctg_rounded_widget.dart';
 import 'package:ecommerce_app_en/widgets/products/latest_arrival.dart';
-import 'package:ecommerce_app_en/widgets/products/product_widget.dart';
-import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
 import 'package:card_swiper/card_swiper.dart';
 
 import '../services/images_manager.dart';

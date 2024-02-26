@@ -1,7 +1,6 @@
 import 'package:ecommerce_app_en/services/images_manager.dart';
 import 'package:ecommerce_app_en/widgets/products/product_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
-import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 
@@ -37,6 +36,10 @@ class _SearchPageState extends State<SearchPage> {
             toolbarHeight: 40,
             leading: Image.asset(ImagesManager.shoppingBasket),
             title: const SubtitleTextWidget(label: "Search Products"),
+            actions: [
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.delete_forever))
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),

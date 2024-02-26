@@ -2,7 +2,6 @@ import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
-import '../services/images_manager.dart';
 
 class EmptyCardWidget extends StatelessWidget {
   const EmptyCardWidget(

@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
+import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
@@ -89,12 +91,17 @@ class ProfilePage extends StatelessWidget {
                   CustomListTileWidget(
                     image: ImagesManager.wishlistSvg,
                     title: "Wishlist",
-                    func: () {},
+                    func: () {
+                      Navigator.pushNamed(context, WishlistPage.rootName);
+                    },
                   ),
                   CustomListTileWidget(
                     image: ImagesManager.recent,
                     title: "Viewed Recent",
-                    func: () {},
+                    func: () {
+                      Navigator.pushNamed(
+                          context, ViewedRecentlyScreen.rootName);
+                    },
                   ),
                   CustomListTileWidget(
                     image: ImagesManager.address,

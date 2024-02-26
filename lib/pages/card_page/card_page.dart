@@ -3,7 +3,6 @@ import 'package:ecommerce_app_en/pages/card_page/card_widget.dart';
 import 'package:ecommerce_app_en/services/images_manager.dart';
 import 'package:ecommerce_app_en/widgets/empty_card_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
-import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
 class CardPage extends StatelessWidget {
