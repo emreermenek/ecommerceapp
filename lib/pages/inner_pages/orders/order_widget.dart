@@ -51,12 +51,15 @@ class OrderWidget extends StatelessWidget {
                     )
                   ],
                 ),
+                const SizedBox(height: 5),
                 RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                       text: "Price:  ",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onBackground),
+                      children: const <TextSpan>[
                         TextSpan(
                             text: "\$1600",
                             style: TextStyle(
@@ -65,6 +68,7 @@ class OrderWidget extends StatelessWidget {
                                 fontWeight: FontWeight.w400))
                       ]),
                 ),
+                const SizedBox(height: 5),
                 const SubtitleTextWidget(
                   label: "Qty: 10",
                   fontSize: 15,

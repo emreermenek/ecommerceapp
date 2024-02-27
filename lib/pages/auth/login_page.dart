@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_en/consts/validators.dart';
+import 'package:ecommerce_app_en/pages/auth/forgot_password_page.dart';
 import 'package:ecommerce_app_en/pages/auth/register_page.dart';
 import 'package:ecommerce_app_en/root_page.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
@@ -136,7 +137,10 @@ class _LoginPageState extends State<LoginPage> {
                           Align(
                             alignment: Alignment.centerRight,
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, ForgotPasswordPage.rootName);
+                              },
                               child: const SubtitleTextWidget(
                                 label: "Forgot Password?",
                                 color: Colors.blue,
@@ -198,12 +202,15 @@ class _LoginPageState extends State<LoginPage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: RichText(
-                                  text: const TextSpan(
+                                  text: TextSpan(
                                     text: 'You are new? ',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w200,
-                                        fontSize: 16),
-                                    children: <TextSpan>[
+                                        fontSize: 16,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground),
+                                    children: const <TextSpan>[
                                       TextSpan(
                                           text: ' Register',
                                           style: TextStyle(
