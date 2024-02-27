@@ -14,10 +14,10 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<RegisterPage> {
+class _RegisterPageState extends State<RegisterPage> {
   late final TextEditingController _nameController,
       _emailController,
       _passwordController,

@@ -1,5 +1,7 @@
 import 'package:ecommerce_app_en/consts/theme_data.dart';
 import 'package:ecommerce_app_en/pages/auth/register_page.dart';
+import 'package:ecommerce_app_en/pages/home_page.dart';
+import 'package:ecommerce_app_en/pages/inner_pages/orders/order_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
@@ -34,11 +36,13 @@ class MyApp extends StatelessWidget {
                 isDarkTheme: themeProvider.getIsDarkTheme, context: context),
             home: const LoginPage(),
             routes: {
+              RootPage.rootName: (context) => const RootPage(),
               ProductDetails.rootName: (context) => const ProductDetails(),
               ViewedRecentlyScreen.rootName: (context) =>
                   const ViewedRecentlyScreen(),
               WishlistPage.rootName: (context) => const WishlistPage(),
-              RegisterPage.rootName: (context) => const RegisterPage()
+              RegisterPage.rootName: (context) => const RegisterPage(),
+              OrderPage.rootName: (context) => const OrderPage(),
             },
           );
         }));

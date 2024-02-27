@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_en/consts/app_consts.dart';
+import 'package:ecommerce_app_en/pages/inner_pages/orders/order_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
 import 'package:ecommerce_app_en/services/app_functions.dart';
@@ -87,7 +89,9 @@ class ProfilePage extends StatelessWidget {
                   CustomListTileWidget(
                     image: ImagesManager.orderSvg,
                     title: "All Orders",
-                    func: () {},
+                    func: () {
+                      Navigator.pushNamed(context, OrderPage.rootName);
+                    },
                   ),
                   CustomListTileWidget(
                     image: ImagesManager.wishlistSvg,

@@ -5,6 +5,7 @@ import 'package:ecommerce_app_en/pages/search_page.dart';
 import 'package:flutter/material.dart';
 
 class RootPage extends StatefulWidget {
+  static const String rootName = "/rootPage";
   const RootPage({super.key});
 
   @override

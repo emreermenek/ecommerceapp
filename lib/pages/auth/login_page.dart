@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_en/consts/validators.dart';
 import 'package:ecommerce_app_en/pages/auth/register_page.dart';
+import 'package:ecommerce_app_en/root_page.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
 import 'package:ecommerce_app_en/widgets/auth/google_button.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
@@ -175,7 +176,10 @@ class _LoginPageState extends State<LoginPage> {
                                 Flexible(
                                   flex: 2,
                                   child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, RootPage.rootName);
+                                      },
                                       child: const SubtitleTextWidget(
                                           label: "Guest")),
                                 )
