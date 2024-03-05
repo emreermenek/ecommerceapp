@@ -56,7 +56,9 @@ class WishlistPage extends StatelessWidget {
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 12,
                   builder: (context, index) {
-                    return const ProductsWidget();
+                    return const ProductsWidget(
+                      productId: "",
+                    );
                   },
                   itemCount: 16,
                   crossAxisCount: 2),

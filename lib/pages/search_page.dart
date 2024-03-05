@@ -1,8 +1,11 @@
+import 'package:ecommerce_app_en/models/product_model.dart';
+import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/services/images_manager.dart';
 import 'package:ecommerce_app_en/widgets/products/product_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -27,6 +30,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -66,9 +70,12 @@ class _SearchPageState extends State<SearchPage> {
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 12,
                       builder: (context, index) {
-                        return const ProductsWidget();
+                        return ProductsWidget(
+                          productId:
+                              productProvider.getProducts[index].productId,
+                        );
                       },
-                      itemCount: 16,
+                      itemCount: productProvider.getProducts.length,
                       crossAxisCount: 2),
                 ),
               ],

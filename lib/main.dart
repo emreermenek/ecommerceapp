@@ -7,6 +7,7 @@ import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
 import 'package:ecommerce_app_en/pages/auth/login_page.dart';
+import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/providers/theme_provider.dart';
 import 'package:ecommerce_app_en/root_page.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,12 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) {
             return ThemeProvider();
-          })
+          }),
+          ChangeNotifierProvider(
+            create: (_) {
+              return ProductProvider();
+            },
+          )
         ],
         child:
             Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
