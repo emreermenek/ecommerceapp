@@ -8,6 +8,7 @@ import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
 import 'package:ecommerce_app_en/pages/auth/login_page.dart';
 import 'package:ecommerce_app_en/pages/search_page.dart';
+import 'package:ecommerce_app_en/providers/card_provider.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/providers/theme_provider.dart';
 import 'package:ecommerce_app_en/root_page.dart';
@@ -21,7 +22,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -33,7 +33,10 @@ class MyApp extends StatelessWidget {
             create: (_) {
               return ProductProvider();
             },
-          )
+          ),
+          ChangeNotifierProvider(create: (_) {
+            return CardProvider();
+          })
         ],
         child:
             Consumer<ThemeProvider>(builder: (context, themeProvider, child) {

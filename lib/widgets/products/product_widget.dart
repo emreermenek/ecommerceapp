@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/product_model.dart';
+import '../../providers/card_provider.dart';
 
 class ProductsWidget extends StatelessWidget {
   const ProductsWidget({super.key, required this.productId});
@@ -20,6 +21,7 @@ class ProductsWidget extends StatelessWidget {
     final productProvider = Provider.of<ProductProvider>(context);
     final getCurProduct = productProvider.findByProductId(productId);
     final size = MediaQuery.of(context).size;
+    final cardProvider = Provider.of<CardProvider>(context);
     return getCurProduct == null
         ? const SizedBox.shrink()
         : Padding(
@@ -76,8 +78,18 @@ class ProductsWidget extends StatelessWidget {
                         padding: 5.5,
                         color: Colors.lightBlue.shade300,
                         borderRadius: 25,
-                        icon: Icons.shopping_cart_outlined,
-                        func: () {},
+                        icon: cardProvider.isProductInCardd(
+                                productId: getCurProduct.productId)
+                            ? Icons.check
+                            : Icons.shopping_cart_outlined,
+                        func: () {
+                          if (cardProvider.isProductInCardd(
+                              productId: getCurProduct.productId)) {
+                            return;
+                          }
+                          cardProvider.addToCard(
+                              productId: getCurProduct.productId);
+                        },
                       )
                     ],
                   )

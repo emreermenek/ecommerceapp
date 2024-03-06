@@ -7,6 +7,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/card_provider.dart';
 import '../../providers/product_provider.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -19,6 +20,7 @@ class ProductDetails extends StatelessWidget {
     final productProvider = Provider.of<ProductProvider>(context);
     String? productId = ModalRoute.of(context)!.settings.arguments as String?;
     final getCurProduct = productProvider.findByProductId(productId!);
+    final cardProvider = Provider.of<CardProvider>(context);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
@@ -91,10 +93,24 @@ class ProductDetails extends StatelessWidget {
                         ),
                         Expanded(
                           child: ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: const Icon(Icons.shopping_basket_outlined),
-                              label: const SubtitleTextWidget(
-                                  label: "Add to cart")),
+                              onPressed: () {
+                                if (cardProvider.isProductInCardd(
+                                    productId: getCurProduct.productId)) {
+                                  return;
+                                }
+                                cardProvider.addToCard(
+                                    productId: getCurProduct.productId);
+                              },
+                              icon: cardProvider.isProductInCardd(
+                                      productId: getCurProduct.productId)
+                                  ? const Icon(Icons.check)
+                                  : const Icon(Icons.shopping_basket_outlined),
+                              label: cardProvider.isProductInCardd(
+                                      productId: getCurProduct.productId)
+                                  ? const SubtitleTextWidget(
+                                      label: "Added to card")
+                                  : const SubtitleTextWidget(
+                                      label: "Add to card")),
                         )
                       ],
                     ),
