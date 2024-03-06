@@ -6,6 +6,9 @@ import 'package:ecommerce_app_en/widgets/empty_card_widget.dart';
 import 'package:ecommerce_app_en/widgets/products/product_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/product_provider.dart';
 
 class ViewedRecentlyScreen extends StatelessWidget {
   static const String rootName = "/viewed_recently";
@@ -14,6 +17,7 @@ class ViewedRecentlyScreen extends StatelessWidget {
   final bool isEmpty = true;
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
     return isEmpty
         ? Scaffold(
             appBar: AppBar(

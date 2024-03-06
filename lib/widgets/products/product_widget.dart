@@ -26,7 +26,8 @@ class ProductsWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             child: GestureDetector(
               onTap: () async {
-                await Navigator.pushNamed(context, ProductDetails.rootName);
+                await Navigator.pushNamed(context, ProductDetails.rootName,
+                    arguments: getCurProduct.productId);
               },
               child: Column(
                 children: [
