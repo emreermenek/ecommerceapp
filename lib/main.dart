@@ -7,6 +7,7 @@ import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
 import 'package:ecommerce_app_en/pages/auth/login_page.dart';
+import 'package:ecommerce_app_en/pages/search_page.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/providers/theme_provider.dart';
 import 'package:ecommerce_app_en/root_page.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
               OrderPage.rootName: (context) => const OrderPage(),
               ForgotPasswordPage.rootName: (context) =>
                   const ForgotPasswordPage(),
+              SearchPage.rootName: (context) => const SearchPage(),
             },
           );
         }));

@@ -3,11 +3,13 @@ import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/services/images_manager.dart';
 import 'package:ecommerce_app_en/widgets/products/product_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
+import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
+  static const String rootName = "/search_page";
   const SearchPage({super.key});
 
   @override
@@ -31,6 +33,12 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
+    String? passedCategory =
+        ModalRoute.of(context)!.settings.arguments as String?;
+    List<ProductModel> productList = passedCategory == null
+        ? productProvider.getProducts
+        : productProvider.findByCategory(categoryName: passedCategory);
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -39,48 +47,52 @@ class _SearchPageState extends State<SearchPage> {
           appBar: AppBar(
             toolbarHeight: 40,
             leading: Image.asset(ImagesManager.shoppingBasket),
-            title: const SubtitleTextWidget(label: "Search Products"),
+            title:
+                SubtitleTextWidget(label: passedCategory ?? "Search Products"),
             actions: [
               IconButton(
                   onPressed: () {}, icon: const Icon(Icons.delete_forever))
             ],
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                TextField(
-                  controller: searchController,
-                  decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.search,
+          body: productList.isEmpty
+              ? const Center(
+                  child: TitleTextWidget(label: "No product found"),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.search,
+                            ),
+                            suffixIcon: GestureDetector(
+                                onTap: () {
+                                  searchController.clear();
+                                  FocusScope.of(context).unfocus();
+                                },
+                                child: const Icon(
+                                  Icons.clear,
+                                  color: Colors.red,
+                                ))),
                       ),
-                      suffixIcon: GestureDetector(
-                          onTap: () {
-                            searchController.clear();
-                            FocusScope.of(context).unfocus();
-                          },
-                          child: const Icon(
-                            Icons.clear,
-                            color: Colors.red,
-                          ))),
-                ),
-                Expanded(
-                  child: DynamicHeightGridView(
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 12,
-                      builder: (context, index) {
-                        return ProductsWidget(
-                          productId:
-                              productProvider.getProducts[index].productId,
-                        );
-                      },
-                      itemCount: productProvider.getProducts.length,
-                      crossAxisCount: 2),
-                ),
-              ],
-            ),
-          )),
+                      Expanded(
+                        child: DynamicHeightGridView(
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 12,
+                            builder: (context, index) {
+                              return ProductsWidget(
+                                productId: productList[index].productId,
+                              );
+                            },
+                            itemCount: productList.length,
+                            crossAxisCount: 2),
+                      ),
+                    ],
+                  ),
+                )),
     );
   }
 }

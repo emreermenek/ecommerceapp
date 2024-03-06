@@ -21,7 +21,7 @@ class AppConstants {
         image: ImagesManager.cosmetics),
     CategoriesModel(
         id: ImagesManager.electronics,
-        name: "Electronics",
+        name: "Accessories",
         image: ImagesManager.electronics),
     CategoriesModel(
         id: ImagesManager.fashion,
@@ -29,10 +29,10 @@ class AppConstants {
         image: ImagesManager.fashion),
     CategoriesModel(
         id: ImagesManager.mobiles,
-        name: "Mobile Phones",
+        name: "Phones",
         image: ImagesManager.mobiles),
     CategoriesModel(
-        id: ImagesManager.pc, name: "Desktops", image: ImagesManager.pc),
+        id: ImagesManager.pc, name: "Laptops", image: ImagesManager.pc),
     CategoriesModel(
         id: ImagesManager.shoes, name: "Shoes", image: ImagesManager.shoes),
     CategoriesModel(

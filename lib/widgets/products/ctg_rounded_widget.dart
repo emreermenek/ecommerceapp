@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_en/pages/search_page.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,9 @@ class CategoriesRoundedWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, SearchPage.rootName, arguments: label);
+        },
         child: Column(
           children: [
             Image.asset(
