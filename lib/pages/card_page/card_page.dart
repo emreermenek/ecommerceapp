@@ -1,7 +1,9 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/pages/card_page/bottom_checkout_widget.dart';
 import 'package:ecommerce_app_en/pages/card_page/card_widget.dart';
+import 'package:ecommerce_app_en/pages/search_page.dart';
 import 'package:ecommerce_app_en/providers/card_provider.dart';
+import 'package:ecommerce_app_en/root_page.dart';
 import 'package:ecommerce_app_en/services/app_functions.dart';
 import 'package:ecommerce_app_en/services/images_manager.dart';
 import 'package:ecommerce_app_en/widgets/empty_card_widget.dart';
@@ -24,7 +26,9 @@ class CardPage extends StatelessWidget {
                 subtitle1: "Your card is empty!",
                 subtitle2: "You might want to look for new products",
                 buttonText: "Search Products",
-                func: () {}))
+                func: () {
+                  Navigator.pushNamed(context, SearchPage.rootName);
+                }))
         : Scaffold(
             bottomNavigationBar: const BottomCheckoutWidget(),
             appBar: AppBar(
