@@ -30,6 +30,8 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  List<ProductModel> searchedProducts = [];
+
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
@@ -65,6 +67,7 @@ class _SearchPageState extends State<SearchPage> {
                       TextField(
                         controller: searchController,
                         decoration: InputDecoration(
+                            hintText: "Search",
                             prefixIcon: const Icon(
                               Icons.search,
                             ),
@@ -72,22 +75,45 @@ class _SearchPageState extends State<SearchPage> {
                                 onTap: () {
                                   searchController.clear();
                                   FocusScope.of(context).unfocus();
+                                  setState(() {});
                                 },
                                 child: const Icon(
                                   Icons.clear,
                                   color: Colors.red,
                                 ))),
+                        /*  onChanged: (product) {
+                          setState(() {
+                            searchedProducts =
+                                productProvider.search(productName: product);
+                          });
+                        }, */
+                        onSubmitted: (product) {
+                          setState(() {
+                            searchedProducts =
+                                productProvider.search(productName: product);
+                          });
+                        },
                       ),
+                      if (searchController.text.isNotEmpty &&
+                          searchedProducts.isEmpty) ...[
+                        const Center(
+                          child: TitleTextWidget(label: "No product found"),
+                        )
+                      ],
                       Expanded(
                         child: DynamicHeightGridView(
                             crossAxisSpacing: 20,
                             mainAxisSpacing: 12,
                             builder: (context, index) {
                               return ProductsWidget(
-                                productId: productList[index].productId,
+                                productId: searchController.text.isNotEmpty
+                                    ? searchedProducts[index].productId
+                                    : productList[index].productId,
                               );
                             },
-                            itemCount: productList.length,
+                            itemCount: searchController.text.isNotEmpty
+                                ? searchedProducts.length
+                                : productList.length,
                             crossAxisCount: 2),
                       ),
                     ],
