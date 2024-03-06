@@ -51,4 +51,14 @@ class CardProvider with ChangeNotifier {
             cardId: cardItem.cardId, productId: productId, quantity: qty));
     notifyListeners();
   }
+
+  void clearLocalCard() {
+    _cardItems.clear();
+    notifyListeners();
+  }
+
+  void removeOneItem({required String productId}) {
+    _cardItems.remove(productId);
+    notifyListeners();
+  }
 }

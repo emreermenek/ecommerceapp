@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/models/card_model.dart';
 import 'package:ecommerce_app_en/pages/card_page/qty_bottom_sheet_widget.dart';
+import 'package:ecommerce_app_en/providers/card_provider.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
@@ -17,6 +18,7 @@ class CardWidget extends StatelessWidget {
     final cardModel = Provider.of<CardModel>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     final getCurProduct = productProvider.findByProductId(cardModel.productId);
+    final cardProvider = Provider.of<CardProvider>(context);
     return getCurProduct == null
         ? const SizedBox.shrink()
         : FittedBox(
@@ -52,7 +54,10 @@ class CardWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      cardProvider.removeOneItem(
+                                          productId: getCurProduct.productId);
+                                    },
                                     icon:
                                         const Icon(Icons.remove_circle_rounded),
                                     color: Colors.red,

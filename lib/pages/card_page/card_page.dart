@@ -1,6 +1,8 @@
+import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/pages/card_page/bottom_checkout_widget.dart';
 import 'package:ecommerce_app_en/pages/card_page/card_widget.dart';
 import 'package:ecommerce_app_en/providers/card_provider.dart';
+import 'package:ecommerce_app_en/services/app_functions.dart';
 import 'package:ecommerce_app_en/services/images_manager.dart';
 import 'package:ecommerce_app_en/widgets/empty_card_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
@@ -32,7 +34,16 @@ class CardPage extends StatelessWidget {
                   label: "Card(${cardProvider.getCardItems.length})"),
               actions: [
                 IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.delete_forever))
+                    onPressed: () {
+                      AppFunctions.showErrorOrWarningDialog(
+                          isError: false,
+                          context: context,
+                          func: () {
+                            return cardProvider.clearLocalCard();
+                          },
+                          title: "Clear card?");
+                    },
+                    icon: const Icon(Icons.delete_forever))
               ],
             ),
             body: ListView.builder(

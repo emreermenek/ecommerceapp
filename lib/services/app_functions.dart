@@ -53,6 +53,9 @@ class AppFunctions {
                     TextButton(
                         onPressed: () {
                           func();
+                          if (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
                         },
                         child: const TitleTextWidget(
                           label: "OK",
