@@ -82,7 +82,9 @@ class CardWidget extends StatelessWidget {
                                             .scaffoldBackgroundColor,
                                         context: context,
                                         builder: (context) {
-                                          return const QuantityBottomSheetWidget();
+                                          return QuantityBottomSheetWidget(
+                                            cardModel: cardModel,
+                                          );
                                         });
                                   },
                                   icon: const Icon(Icons.arrow_drop_down),

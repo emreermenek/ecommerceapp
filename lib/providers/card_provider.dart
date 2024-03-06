@@ -30,10 +30,10 @@ class CardProvider with ChangeNotifier {
       if (getCurProduct == null) {
         total += 0;
       } else {
-        total += double.parse(getCurProduct.productPrice * value.quantity);
+        total += double.parse(getCurProduct.productPrice) * value.quantity;
       }
     });
-    return total;
+    return double.parse(total.toStringAsFixed(3));
   }
 
   int totalQuantity() {
@@ -42,5 +42,13 @@ class CardProvider with ChangeNotifier {
       total += value.quantity;
     });
     return total;
+  }
+
+  void changeQuantity({required String productId, required int qty}) {
+    _cardItems.update(
+        productId,
+        (cardItem) => CardModel(
+            cardId: cardItem.cardId, productId: productId, quantity: qty));
+    notifyListeners();
   }
 }
