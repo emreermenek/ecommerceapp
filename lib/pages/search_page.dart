@@ -89,8 +89,8 @@ class _SearchPageState extends State<SearchPage> {
                         }, */
                         onSubmitted: (product) {
                           setState(() {
-                            searchedProducts =
-                                productProvider.search(productName: product);
+                            searchedProducts = productProvider.search(
+                                productName: product, passedList: productList);
                           });
                         },
                       ),
