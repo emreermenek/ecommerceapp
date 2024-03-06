@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -19,5 +20,27 @@ class CardProvider with ChangeNotifier {
 
   bool isProductInCardd({required String productId}) {
     return _cardItems.containsKey(productId);
+  }
+
+  double totalPrice({required ProductProvider productProvider}) {
+    double total = 0;
+
+    _cardItems.forEach((key, value) {
+      final getCurProduct = productProvider.findByProductId(value.productId);
+      if (getCurProduct == null) {
+        total += 0;
+      } else {
+        total += double.parse(getCurProduct.productPrice * value.quantity);
+      }
+    });
+    return total;
+  }
+
+  int totalQuantity() {
+    int total = 0;
+    _cardItems.forEach((key, value) {
+      total += value.quantity;
+    });
+    return total;
   }
 }

@@ -55,9 +55,11 @@ class _RootPageState extends State<RootPage> {
                 label: 'Search'),
             NavigationDestination(
                 selectedIcon: const Icon(Icons.credit_card),
-                icon: Badge(
-                    label: Text("${cardProvider.getCardItems.length}"),
-                    child: const Icon(Icons.credit_card_outlined)),
+                icon: cardProvider.getCardItems.isEmpty
+                    ? const Icon(Icons.credit_card_outlined)
+                    : Badge(
+                        label: Text("${cardProvider.getCardItems.length}"),
+                        child: const Icon(Icons.credit_card_outlined)),
                 label: 'Card'),
             const NavigationDestination(
                 selectedIcon: Icon(Icons.person),

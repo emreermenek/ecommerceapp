@@ -39,7 +39,9 @@ class CardPage extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemCount: cardProvider.getCardItems.length,
                 itemBuilder: (context, index) {
-                  return const CardWidget();
+                  return ChangeNotifierProvider.value(
+                      value: cardProvider.getCardItems.values.toList()[index],
+                      child: const CardWidget());
                 }));
   }
 }

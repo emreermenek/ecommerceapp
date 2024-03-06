@@ -1,12 +1,18 @@
+import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/card_provider.dart';
 
 class BottomCheckoutWidget extends StatelessWidget {
   const BottomCheckoutWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cardProvider = Provider.of<CardProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -21,17 +27,19 @@ class BottomCheckoutWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Flexible(
+              Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TitleTextWidget(
-                      label: "Total(6 Products/9 items)",
+                      label:
+                          "Total(${cardProvider.getCardItems.length} Products/${cardProvider.totalQuantity()} items)",
                       fontSize: 16,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SubtitleTextWidget(
-                      label: "16\$",
+                      label:
+                          "${cardProvider.totalPrice(productProvider: productProvider)}\$",
                     )
                   ],
                 ),
