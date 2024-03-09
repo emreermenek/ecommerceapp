@@ -1,8 +1,10 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/models/card_model.dart';
 import 'package:ecommerce_app_en/pages/card_page/qty_bottom_sheet_widget.dart';
+import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
 import 'package:ecommerce_app_en/providers/card_provider.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
+import 'package:ecommerce_app_en/providers/viewed_recently_provider.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,7 @@ class CardWidget extends StatelessWidget {
     final productProvider = Provider.of<ProductProvider>(context);
     final getCurProduct = productProvider.findByProductId(cardModel.productId);
     final cardProvider = Provider.of<CardProvider>(context);
+    final viewedRecentlyProvider = Provider.of<ViewedRecentlyProvider>(context);
     return getCurProduct == null
         ? const SizedBox.shrink()
         : FittedBox(
@@ -29,10 +32,18 @@ class CardWidget extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: FancyShimmerImage(
-                        imageUrl: getCurProduct.productImage,
-                        height: size.height * 0.2,
-                        width: size.height * 0.2,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, ProductDetails.rootName,
+                              arguments: getCurProduct.productId);
+                          viewedRecentlyProvider.addToLastViewed(
+                              productId: getCurProduct.productId);
+                        },
+                        child: FancyShimmerImage(
+                          imageUrl: getCurProduct.productImage,
+                          height: size.height * 0.2,
+                          width: size.height * 0.2,
+                        ),
                       ),
                     ),
                     const SizedBox(

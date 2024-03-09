@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
+import 'package:ecommerce_app_en/providers/viewed_recently_provider.dart';
 import 'package:ecommerce_app_en/widgets/products/heart_button_widget.dart';
 import 'package:ecommerce_app_en/widgets/products/material_button_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
@@ -23,6 +24,7 @@ class ProductsWidget extends StatelessWidget {
     final getCurProduct = productProvider.findByProductId(productId);
     final size = MediaQuery.of(context).size;
     final cardProvider = Provider.of<CardProvider>(context);
+    final viewedRecentlyProvider = Provider.of<ViewedRecentlyProvider>(context);
     return getCurProduct == null
         ? const SizedBox.shrink()
         : Padding(
@@ -31,6 +33,8 @@ class ProductsWidget extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(context, ProductDetails.rootName,
                     arguments: getCurProduct.productId);
+                viewedRecentlyProvider.addToLastViewed(
+                    productId: getCurProduct.productId);
               },
               child: Column(
                 children: [
@@ -41,6 +45,9 @@ class ProductsWidget extends StatelessWidget {
                       height: size.height * 0.25,
                       width: double.infinity,
                     ),
+                  ),
+                  SizedBox(
+                    height: size.width * 0.04,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,8 +67,8 @@ class ProductsWidget extends StatelessWidget {
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: size.width * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../providers/wishlist_provider.dart';
 import '../../widgets/app_name_text_widget.dart';
 import '../../widgets/products/product_widget.dart';
+import '../search_page.dart';
 
 class WishlistPage extends StatelessWidget {
   static const String rootName = "/wishlist";
@@ -33,21 +34,6 @@ class WishlistPage extends StatelessWidget {
                 },
                 icon: const Icon(Icons.arrow_back_ios_new_outlined),
               ),
-              actions: wishlistProvider.getWishlistItems.isEmpty
-                  ? null
-                  : [
-                      IconButton(
-                          onPressed: () {
-                            AppFunctions.showErrorOrWarningDialog(
-                                isError: false,
-                                context: context,
-                                func: () {
-                                  return wishlistProvider.clearLocalWishlist();
-                                },
-                                title: "Clear wishlist?");
-                          },
-                          icon: const Icon(Icons.delete_forever))
-                    ],
             ),
             body: EmptyCardWidget(
                 image: ImagesManager.shoppingBasket,
@@ -55,21 +41,37 @@ class WishlistPage extends StatelessWidget {
                 subtitle1: "Your wishlist is empty!",
                 subtitle2: "You might want to look for new products",
                 buttonText: "Search Products",
-                func: () {}))
+                func: () {
+                  Navigator.pushNamed(context, SearchPage.rootName);
+                }))
         : Scaffold(
             appBar: AppBar(
-                toolbarHeight: 40,
-                leading: IconButton(
-                  onPressed: () {
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
-                    }
-                  },
-                  icon: const Icon(Icons.arrow_back_ios_new_outlined),
-                ),
-                title: SubtitleTextWidget(
-                    label:
-                        "Wishlist(${wishlistProvider.getWishlistItems.length})")),
+              toolbarHeight: 40,
+              leading: IconButton(
+                onPressed: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_outlined),
+              ),
+              title: SubtitleTextWidget(
+                  label:
+                      "Wishlist(${wishlistProvider.getWishlistItems.length})"),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      AppFunctions.showErrorOrWarningDialog(
+                          isError: false,
+                          context: context,
+                          func: () {
+                            return wishlistProvider.clearLocalWishlist();
+                          },
+                          title: "Clear card?");
+                    },
+                    icon: const Icon(Icons.delete_forever))
+              ],
+            ),
             body: DynamicHeightGridView(
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,

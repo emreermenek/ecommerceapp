@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/card_provider.dart';
 import '../../providers/product_provider.dart';
+import '../../providers/viewed_recently_provider.dart';
 
 class ProductDetails extends StatelessWidget {
   static const String rootName = "/products";

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/card_provider.dart';
+import '../../providers/viewed_recently_provider.dart';
 
 class LatestArrivalProductWidget extends StatelessWidget {
   const LatestArrivalProductWidget({super.key});
@@ -17,22 +18,25 @@ class LatestArrivalProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final cardProvider = Provider.of<CardProvider>(context);
     final productModel = Provider.of<ProductModel>(context);
+    final viewedRecentlyProvider = Provider.of<ViewedRecentlyProvider>(context);
     final size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.height * 0.40,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, ProductDetails.rootName,
-                arguments: productModel.productId);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Flexible(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Flexible(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductDetails.rootName,
+                        arguments: productModel.productId);
+                    viewedRecentlyProvider.addToLastViewed(
+                        productId: productModel.productId);
+                  },
                   child: FancyShimmerImage(
                     imageUrl: productModel.productImage,
                     height: double.infinity,
@@ -40,47 +44,47 @@ class LatestArrivalProductWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 10,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SubtitleTextWidget(
+                    label: productModel.productTitle,
+                    maxLines: 2,
+                    fontSize: 18,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      HeartButtonWidget(productId: productModel.productId),
+                      IconButton(
+                          onPressed: () {
+                            if (cardProvider.isProductInCardd(
+                                productId: productModel.productId)) {
+                              return;
+                            }
+                            cardProvider.addToCard(
+                                productId: productModel.productId);
+                          },
+                          icon: Icon(
+                            cardProvider.isProductInCardd(
+                                    productId: productModel.productId)
+                                ? Icons.check
+                                : Icons.shopping_cart_outlined,
+                          )),
+                    ],
+                  ),
+                  FittedBox(
+                      child: SubtitleTextWidget(
+                          label: "${productModel.productPrice}\$"))
+                ],
               ),
-              Flexible(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SubtitleTextWidget(
-                      label: productModel.productTitle,
-                      maxLines: 2,
-                      fontSize: 18,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        HeartButtonWidget(productId: productModel.productId),
-                        IconButton(
-                            onPressed: () {
-                              if (cardProvider.isProductInCardd(
-                                  productId: productModel.productId)) {
-                                return;
-                              }
-                              cardProvider.addToCard(
-                                  productId: productModel.productId);
-                            },
-                            icon: Icon(
-                              cardProvider.isProductInCardd(
-                                      productId: productModel.productId)
-                                  ? Icons.check
-                                  : Icons.shopping_cart_outlined,
-                            )),
-                      ],
-                    ),
-                    FittedBox(
-                        child: SubtitleTextWidget(
-                            label: "${productModel.productPrice}\$"))
-                  ],
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
