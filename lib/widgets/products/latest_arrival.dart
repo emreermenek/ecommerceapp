@@ -2,6 +2,7 @@ import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/models/product_model.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
+import 'package:ecommerce_app_en/widgets/products/heart_button_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -51,30 +52,26 @@ class LatestArrivalProductWidget extends StatelessWidget {
                       maxLines: 2,
                       fontSize: 18,
                     ),
-                    FittedBox(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                if (cardProvider.isProductInCardd(
-                                    productId: productModel.productId)) {
-                                  return;
-                                }
-                                cardProvider.addToCard(
-                                    productId: productModel.productId);
-                              },
-                              icon: Icon(
-                                cardProvider.isProductInCardd(
-                                        productId: productModel.productId)
-                                    ? Icons.check
-                                    : Icons.shopping_cart_outlined,
-                              )),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite_border_outlined)),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        HeartButtonWidget(productId: productModel.productId),
+                        IconButton(
+                            onPressed: () {
+                              if (cardProvider.isProductInCardd(
+                                  productId: productModel.productId)) {
+                                return;
+                              }
+                              cardProvider.addToCard(
+                                  productId: productModel.productId);
+                            },
+                            icon: Icon(
+                              cardProvider.isProductInCardd(
+                                      productId: productModel.productId)
+                                  ? Icons.check
+                                  : Icons.shopping_cart_outlined,
+                            )),
+                      ],
                     ),
                     FittedBox(
                         child: SubtitleTextWidget(

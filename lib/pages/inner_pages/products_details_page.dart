@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
+import 'package:ecommerce_app_en/widgets/products/heart_button_widget.dart';
 import 'package:ecommerce_app_en/widgets/products/material_button_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
@@ -80,16 +81,12 @@ class ProductDetails extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        MaterialButtonWidget(
-                          size: 22,
-                          padding: 9,
-                          color: Colors.lightBlue.shade300,
-                          borderRadius: 25,
-                          icon: Icons.favorite_border_outlined,
-                          func: () {},
+                        HeartButtonWidget(
+                          productId: productId,
+                          size: 28,
                         ),
                         SizedBox(
-                          width: size.width * 0.2,
+                          width: size.width * 0.1,
                         ),
                         Expanded(
                           child: ElevatedButton.icon(

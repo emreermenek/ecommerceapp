@@ -11,6 +11,7 @@ import 'package:ecommerce_app_en/pages/search_page.dart';
 import 'package:ecommerce_app_en/providers/card_provider.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/providers/theme_provider.dart';
+import 'package:ecommerce_app_en/providers/wishlist_provider.dart';
 import 'package:ecommerce_app_en/root_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,12 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(create: (_) {
             return CardProvider();
-          })
+          }),
+          ChangeNotifierProvider(
+            create: (_) {
+              return WishlistProvider();
+            },
+          )
         ],
         child:
             Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
