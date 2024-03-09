@@ -5,6 +5,7 @@ import 'package:ecommerce_app_en/pages/inner_pages/products_details_page.dart';
 import 'package:ecommerce_app_en/providers/card_provider.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/providers/viewed_recently_provider.dart';
+import 'package:ecommerce_app_en/widgets/products/heart_button_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
@@ -76,10 +77,8 @@ class CardWidget extends StatelessWidget {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                          Icons.favorite_border_outlined)),
+                                  HeartButtonWidget(
+                                      productId: getCurProduct.productId)
                                 ],
                               ),
                             ],
