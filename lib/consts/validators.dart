@@ -28,6 +28,7 @@ class Validators {
     if (password.length < 6) {
       return "Password must be longer than 6 character";
     }
+    return null;
   }
 
   static String? repeatPasswordValidator(String? value, String? password) {
