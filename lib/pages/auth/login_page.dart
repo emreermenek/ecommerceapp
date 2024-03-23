@@ -2,14 +2,19 @@ import 'package:ecommerce_app_en/consts/validators.dart';
 import 'package:ecommerce_app_en/pages/auth/forgot_password_page.dart';
 import 'package:ecommerce_app_en/pages/auth/register_page.dart';
 import 'package:ecommerce_app_en/root_page.dart';
+import 'package:ecommerce_app_en/services/app_functions.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
 import 'package:ecommerce_app_en/widgets/auth/google_button.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+  static const String rootName = "/login";
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -22,6 +27,8 @@ class _LoginPageState extends State<LoginPage> {
   late final FocusNode _emailFocus;
   late final FocusNode _passwordFocus;
   bool isPasswordVisible = false;
+  bool _isLoading = false;
+  FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -46,6 +53,37 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _loginFunc() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
+
+    if (isValid) {
+      try {
+        setState(() {
+          _isLoading = true;
+        });
+        await auth.createUserWithEmailAndPassword(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim());
+        Fluttertoast.showToast(
+            msg: "An account created!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        if (!mounted) return;
+        Navigator.pushReplacementNamed(context, RootPage.rootName);
+      } on FirebaseException catch (error) {
+        await AppFunctions.showErrorOrWarningDialog(
+            context: context, func: () {}, title: error.message.toString());
+      } catch (error) {
+        await AppFunctions.showErrorOrWarningDialog(
+            context: context, func: () {}, title: error.toString());
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override

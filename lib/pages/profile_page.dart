@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
+import 'package:ecommerce_app_en/pages/auth/login_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/orders/order_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce_app_en/services/app_functions.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,11 +15,17 @@ import '../providers/theme_provider.dart';
 import '../services/images_manager.dart';
 import '../widgets/customlisttile_widget.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
   Widget build(BuildContext context) {
+    User? _currentUser = FirebaseAuth.instance.currentUser;
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -148,14 +156,18 @@ class ProfilePage extends StatelessWidget {
                   Center(
                     child: ElevatedButton(
                       onPressed: () async {
-                        AppFunctions.showErrorOrWarningDialog(
-                            context: context,
-                            func: () {},
-                            title: "Are you sure?",
-                            isError: false);
+                        if (_currentUser == null) {
+                          Navigator.pushNamed(context, LoginPage.rootName);
+                        } else {
+                          AppFunctions.showErrorOrWarningDialog(
+                              context: context,
+                              func: () {},
+                              title: "Are you sure?",
+                              isError: false);
+                        }
                       },
-                      child: const SubtitleTextWidget(
-                        label: "Logout",
+                      child: SubtitleTextWidget(
+                        label: _currentUser == null ? "Login " : "Logout",
                         fontSize: 14,
                       ),
                     ),
