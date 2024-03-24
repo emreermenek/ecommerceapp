@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_en/consts/validators.dart';
 import 'package:ecommerce_app_en/loading_manager.dart';
 import 'package:ecommerce_app_en/root_page.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../services/app_functions.dart';
 
@@ -77,6 +79,18 @@ class _RegisterPageState extends State<RegisterPage> {
         await auth.createUserWithEmailAndPassword(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim());
+        final User? user = auth.currentUser;
+        final String uid = user!.uid;
+        await FirebaseFirestore.instance.collection("Users").doc().set({
+          "userId": uid,
+          "userImage": "",
+          "timestamp": Timestamp.now(),
+          "userName": _nameController.text,
+          "userEmail": _emailController.text.trim(),
+          "userWish": [],
+          "userCard": []
+        });
+
         Fluttertoast.showToast(
             msg: "An account created!",
             toastLength: Toast.LENGTH_SHORT,
