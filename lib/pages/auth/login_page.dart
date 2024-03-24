@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_en/consts/validators.dart';
+import 'package:ecommerce_app_en/loading_manager.dart';
 import 'package:ecommerce_app_en/pages/auth/forgot_password_page.dart';
 import 'package:ecommerce_app_en/pages/auth/register_page.dart';
 import 'package:ecommerce_app_en/root_page.dart';
@@ -27,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   late final FocusNode _emailFocus;
   late final FocusNode _passwordFocus;
   bool isPasswordVisible = false;
+  bool _isLoading = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   @override
@@ -55,6 +57,9 @@ class _LoginPageState extends State<LoginPage> {
 
     if (isValid) {
       try {
+        setState(() {
+          _isLoading = true;
+        });
         await auth.signInWithEmailAndPassword(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim());
@@ -74,189 +79,199 @@ class _LoginPageState extends State<LoginPage> {
       } catch (error) {
         await AppFunctions.showErrorOrWarningDialog(
             context: context, func: () {}, title: error.toString());
-      } finally {}
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Form(
-          key: _formKey,
-          child: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 35, bottom: 25),
-                      child: AppNameTextWidget(
-                        title: "Best Shop",
-                        fontSize: 35,
+      body: LoadingManager(
+        isLoading: _isLoading,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: _formKey,
+            child: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+              },
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 35, bottom: 25),
+                        child: AppNameTextWidget(
+                          title: "Best Shop",
+                          fontSize: 35,
+                        ),
                       ),
-                    ),
-                    const Align(
-                        alignment: Alignment.bottomLeft,
-                        child: TitleTextWidget(label: "Welcome Back")),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Align(
-                        alignment: Alignment.bottomLeft,
-                        child: SubtitleTextWidget(
-                            label: "Log in and start exploring")),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: _emailController,
-                            focusNode: _emailFocus,
-                            textInputAction: TextInputAction.next,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                                hintText: "Email address",
-                                prefixIcon: Icon(Icons.email_outlined)),
-                            onFieldSubmitted: (value) {
-                              FocusScope.of(context)
-                                  .requestFocus(_passwordFocus);
-                            },
-                            validator: (value) {
-                              return Validators.emailValidator(value);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _passwordController,
-                            obscureText: !isPasswordVisible,
-                            focusNode: _passwordFocus,
-                            textInputAction: TextInputAction.done,
-                            decoration: InputDecoration(
-                                hintText: "Password",
-                                prefixIcon: const Icon(Icons.lock),
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        isPasswordVisible = !isPasswordVisible;
-                                      });
-                                    },
-                                    icon: isPasswordVisible
-                                        ? const Icon(Icons.visibility)
-                                        : const Icon(Icons.visibility_off))),
-                            onFieldSubmitted: (value) async {
-                              return _loginFunc();
-                            },
-                            validator: (value) {
-                              return Validators.passwordValidator(value);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, ForgotPasswordPage.rootName);
+                      const Align(
+                          alignment: Alignment.bottomLeft,
+                          child: TitleTextWidget(label: "Welcome Back")),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Align(
+                          alignment: Alignment.bottomLeft,
+                          child: SubtitleTextWidget(
+                              label: "Log in and start exploring")),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: _emailController,
+                              focusNode: _emailFocus,
+                              textInputAction: TextInputAction.next,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: const InputDecoration(
+                                  hintText: "Email address",
+                                  prefixIcon: Icon(Icons.email_outlined)),
+                              onFieldSubmitted: (value) {
+                                FocusScope.of(context)
+                                    .requestFocus(_passwordFocus);
                               },
-                              child: const SubtitleTextWidget(
-                                label: "Forgot Password?",
-                                color: Colors.blue,
-                                fontStyle: FontStyle.italic,
+                              validator: (value) {
+                                return Validators.emailValidator(value);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            TextFormField(
+                              controller: _passwordController,
+                              obscureText: !isPasswordVisible,
+                              focusNode: _passwordFocus,
+                              textInputAction: TextInputAction.done,
+                              decoration: InputDecoration(
+                                  hintText: "Password",
+                                  prefixIcon: const Icon(Icons.lock),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          isPasswordVisible =
+                                              !isPasswordVisible;
+                                        });
+                                      },
+                                      icon: isPasswordVisible
+                                          ? const Icon(Icons.visibility)
+                                          : const Icon(Icons.visibility_off))),
+                              onFieldSubmitted: (value) async {
+                                return _loginFunc();
+                              },
+                              validator: (value) {
+                                return Validators.passwordValidator(value);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, ForgotPasswordPage.rootName);
+                                },
+                                child: const SubtitleTextWidget(
+                                  label: "Forgot Password?",
+                                  color: Colors.blue,
+                                  fontStyle: FontStyle.italic,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                                onPressed: () async {
-                                  return _loginFunc();
-                                },
-                                child: const TitleTextWidget(label: "Login")),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const SubtitleTextWidget(
-                            label: "OR LOGIN USING",
-                            fontWeight: FontWeight.w200,
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          IntrinsicWidth(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Flexible(flex: 4, child: GoogleButton()),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, RootPage.rootName);
-                                      },
-                                      child: const SubtitleTextWidget(
-                                          label: "Guest")),
-                                )
-                              ],
+                            const SizedBox(
+                              height: 15,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          IntrinsicWidth(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, RegisterPage.rootName);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: 'You are new? ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w200,
-                                        fontSize: 16,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onBackground),
-                                    children: const <TextSpan>[
-                                      TextSpan(
-                                          text: ' Register',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.blue,
-                                              fontSize: 16)),
-                                    ],
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  onPressed: () async {
+                                    return _loginFunc();
+                                  },
+                                  child: const TitleTextWidget(label: "Login")),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const SubtitleTextWidget(
+                              label: "OR LOGIN USING",
+                              fontWeight: FontWeight.w200,
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            IntrinsicWidth(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Flexible(
+                                      flex: 4, child: GoogleButton()),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Flexible(
+                                    flex: 2,
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, RootPage.rootName);
+                                        },
+                                        child: const SubtitleTextWidget(
+                                            label: "Guest")),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            IntrinsicWidth(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, RegisterPage.rootName);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: 'You are new? ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: 16,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onBackground),
+                                      children: const <TextSpan>[
+                                        TextSpan(
+                                            text: ' Register',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
+                                                fontSize: 16)),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ]),
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+              ),
             ),
           ),
         ),
