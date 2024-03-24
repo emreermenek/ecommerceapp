@@ -39,7 +39,9 @@ class GoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-        onPressed: () {},
+        onPressed: () async {
+          await _googleSignIn(context);
+        },
         icon: Image.asset(
           ImagesManager.googleLogo,
           width: 30,

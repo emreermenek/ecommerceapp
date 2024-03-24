@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   late final FocusNode _emailFocus;
   late final FocusNode _passwordFocus;
   bool isPasswordVisible = false;
-  bool _isLoading = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   @override
@@ -56,14 +55,11 @@ class _LoginPageState extends State<LoginPage> {
 
     if (isValid) {
       try {
-        setState(() {
-          _isLoading = true;
-        });
-        await auth.createUserWithEmailAndPassword(
+        await auth.signInWithEmailAndPassword(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim());
         Fluttertoast.showToast(
-            msg: "An account created!",
+            msg: "Signed in!",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -78,11 +74,7 @@ class _LoginPageState extends State<LoginPage> {
       } catch (error) {
         await AppFunctions.showErrorOrWarningDialog(
             context: context, func: () {}, title: error.toString());
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-      }
+      } finally {}
     }
   }
 
