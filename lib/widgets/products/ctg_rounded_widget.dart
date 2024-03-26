@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_en/pages/search_page.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CategoriesRoundedWidget extends StatelessWidget {
   const CategoriesRoundedWidget(
@@ -26,9 +27,11 @@ class CategoriesRoundedWidget extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            TitleTextWidget(
-              label: label,
-              fontSize: 14,
+            Flexible(
+              child: TitleTextWidget(
+                label: label,
+                fontSize: 14,
+              ),
             ),
           ],
         ),

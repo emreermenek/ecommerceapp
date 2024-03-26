@@ -1,14 +1,18 @@
 import 'package:ecommerce_app_en/consts/app_consts.dart';
+import 'package:ecommerce_app_en/loading_manager.dart';
+import 'package:ecommerce_app_en/models/user_model.dart';
 import 'package:ecommerce_app_en/pages/auth/login_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/orders/order_page.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/viewed_recently.dart';
 import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
+import 'package:ecommerce_app_en/providers/user_provider.dart';
 import 'package:ecommerce_app_en/services/app_functions.dart';
 import 'package:ecommerce_app_en/widgets/app_name_text_widget.dart';
 import 'package:ecommerce_app_en/widgets/subtitle_text.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/theme_provider.dart';
@@ -23,9 +27,36 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final User? _user = FirebaseAuth.instance.currentUser;
+  UserModel? userModel;
+  bool _isLoading = true;
+
+  Future<void> fetchUserInfo() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      userModel = await userProvider.fetchUserModel();
+    } catch (error) {
+      if (!mounted) return;
+      await AppFunctions.showErrorOrWarningDialog(
+          context: context, func: () {}, title: error.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    fetchUserInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    User? _currentUser = FirebaseAuth.instance.currentUser;
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -33,149 +64,155 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: Image.asset(ImagesManager.shoppingCart),
         title: const AppNameTextWidget(title: "Best Shop"),
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            const Visibility(
-              visible: false,
-              child: Padding(
-                padding: EdgeInsets.all(18.0),
-                child: SubtitleTextWidget(
-                    label: "Please login to have unlimited access!"),
-              ),
-            ),
-            Visibility(
-              visible: true,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: themeProvider.getIsDarkTheme
-                                ? Colors.white
-                                : Colors.black,
-                            width: 2,
-                          ),
-                          image: const DecorationImage(
-                              fit: BoxFit.contain,
-                              image: NetworkImage(
-                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"))),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TitleTextWidget(label: "Emre Ermenek"),
-                        SubtitleTextWidget(
-                          label: "emreermenek1234@gmail.com",
-                          fontSize: 16,
-                        )
-                      ],
-                    ),
-                  ],
+      body: LoadingManager(
+        isLoading: _isLoading,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              Visibility(
+                visible: userModel == null ? true : false,
+                child: const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  child: Center(
+                    child: SubtitleTextWidget(
+                        label: "Please login to have unlimited access!"),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TitleTextWidget(
-                    label: "General",
-                    fontSize: 18,
-                  ),
-                  CustomListTileWidget(
-                    image: ImagesManager.orderSvg,
-                    title: "All Orders",
-                    func: () {
-                      Navigator.pushNamed(context, OrderPage.rootName);
-                    },
-                  ),
-                  CustomListTileWidget(
-                    image: ImagesManager.wishlistSvg,
-                    title: "Wishlist",
-                    func: () {
-                      Navigator.pushNamed(context, WishlistPage.rootName);
-                    },
-                  ),
-                  CustomListTileWidget(
-                    image: ImagesManager.recent,
-                    title: "Viewed Recent",
-                    func: () {
-                      Navigator.pushNamed(
-                          context, ViewedRecentlyScreen.rootName);
-                    },
-                  ),
-                  CustomListTileWidget(
-                    image: ImagesManager.address,
-                    title: "Address",
-                    func: () {},
-                  ),
-                  const Divider(
-                    thickness: 2,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const TitleTextWidget(
-                    label: "Settings",
-                    fontSize: 18,
-                  ),
-                  SwitchListTile(
-                      secondary: Image.asset(
-                        ImagesManager.theme,
-                        height: 32,
-                        width: 32,
-                      ),
-                      title: themeProvider.getIsDarkTheme
-                          ? const SubtitleTextWidget(
-                              label: "Dark Theme",
-                              fontSize: 14,
-                            )
-                          : const SubtitleTextWidget(
-                              label: "Dark Theme",
-                              fontSize: 14,
-                            ),
-                      value: themeProvider.getIsDarkTheme,
-                      onChanged: (value) {
-                        themeProvider.setDarkTheme(value);
-                      }),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (_currentUser == null) {
-                          Navigator.pushNamed(context, LoginPage.rootName);
-                        } else {
-                          AppFunctions.showErrorOrWarningDialog(
-                              context: context,
-                              func: () {},
-                              title: "Are you sure?",
-                              isError: false);
-                        }
-                      },
-                      child: SubtitleTextWidget(
-                        label: _currentUser == null ? "Login " : "Logout",
-                        fontSize: 14,
+              userModel == null
+                  ? const SizedBox.shrink()
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: themeProvider.getIsDarkTheme
+                                      ? Colors.white
+                                      : Colors.black,
+                                  width: 2,
+                                ),
+                                image: DecorationImage(
+                                    fit: BoxFit.contain,
+                                    image: NetworkImage(userModel!.userImage))),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TitleTextWidget(label: userModel!.userName),
+                              SubtitleTextWidget(
+                                label: userModel!.userEmail,
+                                fontSize: 16,
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  )
-                ],
+              Visibility(
+                visible: userModel == null ? false : true,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TitleTextWidget(
+                        label: "General",
+                        fontSize: 18,
+                      ),
+                      CustomListTileWidget(
+                        image: ImagesManager.orderSvg,
+                        title: "All Orders",
+                        func: () {
+                          Navigator.pushNamed(context, OrderPage.rootName);
+                        },
+                      ),
+                      CustomListTileWidget(
+                        image: ImagesManager.wishlistSvg,
+                        title: "Wishlist",
+                        func: () {
+                          Navigator.pushNamed(context, WishlistPage.rootName);
+                        },
+                      ),
+                      CustomListTileWidget(
+                        image: ImagesManager.recent,
+                        title: "Viewed Recent",
+                        func: () {
+                          Navigator.pushNamed(
+                              context, ViewedRecentlyScreen.rootName);
+                        },
+                      ),
+                      CustomListTileWidget(
+                        image: ImagesManager.address,
+                        title: "Address",
+                        func: () {},
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const TitleTextWidget(
+                        label: "Settings",
+                        fontSize: 18,
+                      ),
+                      SwitchListTile(
+                          secondary: Image.asset(
+                            ImagesManager.theme,
+                            height: 32,
+                            width: 32,
+                          ),
+                          title: themeProvider.getIsDarkTheme
+                              ? const SubtitleTextWidget(
+                                  label: "Dark Theme",
+                                  fontSize: 14,
+                                )
+                              : const SubtitleTextWidget(
+                                  label: "Dark Theme",
+                                  fontSize: 14,
+                                ),
+                          value: themeProvider.getIsDarkTheme,
+                          onChanged: (value) {
+                            themeProvider.setDarkTheme(value);
+                          }),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_user == null) {
+                              Navigator.pushNamed(context, LoginPage.rootName);
+                            } else {
+                              AppFunctions.showErrorOrWarningDialog(
+                                  context: context,
+                                  func: () {},
+                                  title: "Are you sure?",
+                                  isError: false);
+                            }
+                          },
+                          child: SubtitleTextWidget(
+                            label: _user == null ? "Login " : "Logout",
+                            fontSize: 14,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:ecommerce_app_en/widgets/products/latest_arrival.dart';
 import 'package:ecommerce_app_en/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../services/images_manager.dart';

@@ -11,6 +11,7 @@ import 'package:ecommerce_app_en/pages/inner_pages/wishlist.dart';
 import 'package:ecommerce_app_en/pages/auth/login_page.dart';
 import 'package:ecommerce_app_en/pages/search_page.dart';
 import 'package:ecommerce_app_en/providers/card_provider.dart';
+import 'package:ecommerce_app_en/providers/user_provider.dart';
 import 'package:ecommerce_app_en/providers/viewed_recently_provider.dart';
 import 'package:ecommerce_app_en/providers/product_provider.dart';
 import 'package:ecommerce_app_en/providers/theme_provider.dart';
@@ -53,7 +54,10 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(create: (_) {
             return ViewedRecentlyProvider();
-          })
+          }),
+          ChangeNotifierProvider(create: (_) {
+            return UserProvider();
+          }),
         ],
         child:
             Consumer<ThemeProvider>(builder: (context, themeProvider, child) {

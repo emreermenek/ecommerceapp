@@ -81,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
             password: _passwordController.text.trim());
         final User? user = auth.currentUser;
         final String uid = user!.uid;
-        await FirebaseFirestore.instance.collection("Users").doc().set({
+        await FirebaseFirestore.instance.collection("Users").doc(uid).set({
           "userId": uid,
           "userImage": "",
           "timestamp": Timestamp.now(),

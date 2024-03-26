@@ -30,6 +30,7 @@ class AppFunctions {
                 TitleTextWidget(
                   label: title,
                   color: Colors.blue,
+                  maxLines: 3,
                 ),
                 const SizedBox(
                   height: 15,
